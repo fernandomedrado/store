@@ -92,4 +92,38 @@ class ProductController extends Controller
             }
         });
     }
+
+    public function cart(StoreProductRequest $request)
+    {
+        return parent::execute(function () use ($request) {
+            try {
+                $data = $request->all();
+                $result = parent::getService()->cart($data);
+
+                $this->setResponseHTTPCode(Response::HTTP_OK);
+
+                return $result;
+            } catch (ValidatorException | Throwable $exc) {
+                $this->setResponseHTTPCode(Response::HTTP_BAD_REQUEST);
+                throw $exc;
+            }
+        });
+    }
+
+    public function removeCart(int $id)
+    {
+        return parent::execute(function () use ($request, $id) {
+            try {
+                $data = $request->all();
+                $result = parent::getService()->updateOrFail($id, $data);
+
+                $this->setResponseHTTPCode(Response::HTTP_OK);
+
+                return $result;
+            } catch (ValidatorException | Throwable $exc) {
+                $this->setResponseHTTPCode(Response::HTTP_BAD_REQUEST);
+                throw $exc;
+            }
+        });
+    }
 }

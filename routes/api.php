@@ -9,4 +9,7 @@ Route::apiResource('product', ProductController::class)->only([
     'show',
     'update',
     'destroy',
+    'cart',
+    'checkout',
+    'remove-cart'
 ]);
